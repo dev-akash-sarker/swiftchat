@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../navbar";
 import { AiOutlinePlus } from "react-icons/ai";
 import {
@@ -7,12 +7,22 @@ import {
   BsFillTelephoneFill,
   BsCameraVideoFill,
   BsReverseLayoutSidebarInsetReverse,
+  BsPlusLg,
+  BsFillImageFill,
+  BsFillEmojiSmileFill,
+  BsFillBellFill,
+  BsImages,
+  BsSliders,
 } from "react-icons/bs";
+import { BiSolidMicrophone } from "react-icons/bi";
+import { IoMdPaperPlane } from "react-icons/io";
 import { LuDot } from "react-icons/lu";
 import "./style.css";
 
 export default function Mychat() {
   const userimage = "./images/userimage.webp";
+  const [sidebarstate, setSidebarstate] = useState(false);
+  const thumnail = "./images/thumnail.jpg";
   return (
     <>
       <Navbar />
@@ -95,7 +105,11 @@ export default function Mychat() {
             </div>
           </div>
         </div>
-        <div className="chating w-[60%] bg-blue">
+        <div
+          className={
+            sidebarstate ? "chating w-[80%] bg-blue" : "chating w-[60%] bg-blue"
+          }
+        >
           <div className="p-7 shadow flex justify-between">
             <div className="chatuser flex gap-4">
               <div className="chatImage block w-[48px] h-[48px]">
@@ -117,21 +131,24 @@ export default function Mychat() {
               </div>
             </div>
             <div className="flex gap-3">
-              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg">
-                <BsFillTelephoneFill color="gray" />
+              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BsFillTelephoneFill />
               </div>
-              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg">
-                <BsCameraVideoFill color="gray" />
+              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BsCameraVideoFill />
               </div>
-              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg">
-                <BsSearch color="gray" />
+              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BsSearch />
               </div>
-              <div className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg">
-                <BsReverseLayoutSidebarInsetReverse color="gray" />
+              <div
+                onClick={() => setSidebarstate(!sidebarstate)}
+                className="flex justify-center items-center w-[40px] h-[40px] bg-[#e2e8f0] rounded-lg hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]"
+              >
+                <BsReverseLayoutSidebarInsetReverse />
               </div>
             </div>
           </div>
-          <div className="bg-[#DBEAFE] px-5 py-3 w-[100%] h-[500px] shadow overflow-y-auto">
+          <div className="bg-[#DBEAFE] px-5 py-3 w-[100%] h-[490px] shadow overflow-y-auto">
             <h1>Hello world</h1>
             <h1>Hello world</h1>
             <h1>Hello world</h1>
@@ -190,8 +207,82 @@ export default function Mychat() {
             <h1>Hello world</h1>
             <h1>Hello world</h1>
           </div>
+          <div className="p-7 shadow flex justify-between">
+            <div
+              className={
+                sidebarstate
+                  ? "flex items-center gap-3 w-[10%]"
+                  : "flex items-center gap-3 w-[15%]"
+              }
+            >
+              <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#e2e8f0] rounded-full hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BsPlusLg fontSize={14} />
+              </div>
+              <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#e2e8f0] rounded-full hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BsFillImageFill fontSize={14} />
+              </div>
+              <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#e2e8f0] rounded-full hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BsFillEmojiSmileFill fontSize={14} />
+              </div>
+            </div>
+            <div className={sidebarstate ? "w-[80%]" : "w-[70%]"}>
+              <input
+                type="text"
+                className="grow overflow-auto bg-[#e2e8f0] py-[0.5rem] px-[0.875rem] text-[0.875rem] leading-6 rounded-[0.5rem] w-[100%] outline-none"
+              />
+            </div>
+            <div
+              className={
+                sidebarstate
+                  ? "flex items-center gap-3 w-[7%] "
+                  : "flex items-center gap-3 w-[10%] "
+              }
+            >
+              <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#e2e8f0] rounded-full hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <BiSolidMicrophone fontSize={14} />
+              </div>
+              <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#e2e8f0] rounded-full hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue]">
+                <IoMdPaperPlane fontSize={14} />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="incomingProfile w-[20%] bg-green">c</div>
+        <div className={sidebarstate ? "w-0 hidden" : "w-[20%]"}>
+          <div className="relative">
+            <div className="coverImage w-[305px] h-[auto] overflow-hidden ">
+              <img src={thumnail} className="w-[100%] h-[100%]" alt="" />
+            </div>
+            <div className="chatImage block w-[56.8px] h-[56.8px] border-2 border-[#fff] mt-[-25px] mx-auto">
+              <img
+                className="w-[100%] h-[100%] rounded-md"
+                src={userimage}
+                alt="userimage"
+              />
+            </div>
+            <h5 className="flex justify-center text-[#64748b] font-bold mt-4">
+              Jasmine Thampson
+            </h5>
+            <div className="flex justify-center">
+              <p className="meta text-[0.625rem] text-[#94a3b8] mt-1">
+                Active Now
+              </p>
+            </div>
+            <div className="flex justify-center gap-5 mt-6">
+              <div className="flex justify-center flex-col items-center w-[70px] h-[62px] bg-[#e2e8f0] hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue] rounded-lg">
+                <BsFillBellFill />
+                <h6 className="text-[12px] font-medium mt-1">Mute</h6>
+              </div>
+              <div className="flex justify-center flex-col items-center w-[70px] h-[62px] bg-[#e2e8f0] hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue] rounded-lg">
+                <BsImages />
+                <h6 className="text-[12px] font-medium mt-1">Media</h6>
+              </div>
+              <div className="flex justify-center flex-col items-center w-[70px] h-[62px] bg-[#e2e8f0] hover:bg-[#DBEAFE] cursor-pointer text-[#475569] hover:text-[blue] rounded-lg">
+                <BsSliders />
+                <h6 className="text-[12px] font-medium mt-1">Options</h6>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
