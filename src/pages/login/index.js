@@ -29,7 +29,6 @@ export default function LoginPage() {
         .then(({ user }) => {
           // Signed in
           // const user = userCredential.user;
-          console.log("dekhi", e);
           dispatch(loginUsers(user));
           localStorage.setItem("users", JSON.stringify(user));
           setTimeout(() => {
@@ -42,6 +41,14 @@ export default function LoginPage() {
         });
     },
   });
+
+  const handleForget = () => {
+    navigate("/forgetpass");
+  };
+
+  const navigateToRegister = () => {
+    navigate("/register");
+  };
   return (
     <div className="relative bg-[#DBEAFE] h-[100vh]">
       <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
@@ -71,7 +78,11 @@ export default function LoginPage() {
                 </label>
                 <label className="relative text-[#475569] text-[14px] font-medium">
                   Password
-                  <button className="absolute right-0 font-semibold hover:text-[#475569] text-[#2563eb]">
+                  <button
+                    type="button"
+                    onClick={handleForget}
+                    className="absolute right-0 font-semibold hover:text-[#475569] text-[#2563eb]"
+                  >
                     Forget Password?
                   </button>
                   <input
@@ -127,6 +138,15 @@ export default function LoginPage() {
                 </div>
               </div>
             </form>
+            <p className="text-center mt-6 text-[#696464] text-[14px] cursor-pointer">
+              Already have an account?{" "}
+              <span
+                className="text-[blue] cursor-pointer"
+                onClick={navigateToRegister}
+              >
+                Register
+              </span>
+            </p>
           </div>
         </div>
       </div>

@@ -11,6 +11,9 @@ import LoginPage from "./pages/login";
 import ForgetPassPage from "./pages/forgetpass";
 import Loggedinuser from "./privateroutes/loggedinusers";
 import Home from "./components/home";
+import Mychat from "./components/myChat";
+import Mystories from "./components/stories";
+import Myfriends from "./components/myfriends";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -26,6 +29,9 @@ function App() {
         </Route>
         <Route element={<Loggedinuser />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/mychat" element={<Mychat />} />
+          <Route path="/myfriends" element={<Myfriends />} />
+          <Route path="/mystories" element={<Mystories />} />
         </Route>
       </Route>
     )

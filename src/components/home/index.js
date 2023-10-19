@@ -1,5 +1,10 @@
 import React from "react";
+import Mychat from "../myChat";
 
 export default function Home() {
-  return <div className="text-[70px] text-[#000]">Home</div>;
+  return (
+    <div>
+      <Mychat />
+    </div>
+  );
 }
