@@ -12,6 +12,7 @@ import {
 import { getDatabase, ref, set } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Registration() {
   const [passwordme, setPasswordme] = useState(false);
@@ -87,6 +88,10 @@ export default function Registration() {
         });
     },
   });
+
+  const navigateToLogin = () => {
+    navigate("/signin");
+  };
   return (
     <>
       <ToastContainer />
@@ -232,7 +237,12 @@ export default function Registration() {
             </form>
             <p className="text-center mt-6 text-[#696464] text-[14px] cursor-pointer">
               Already have an account?{" "}
-              <span className="text-[blue]">Login</span>
+              <span
+                className="text-[blue] cursor-pointer"
+                onClick={navigateToLogin}
+              >
+                Login
+              </span>
             </p>
           </div>
         </div>
