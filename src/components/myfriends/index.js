@@ -4,6 +4,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { ImBlocked } from "react-icons/im";
 import { LuDot } from "react-icons/lu";
 import { BlockData } from "./data";
+import { BsSearch } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
 
 export default function Myfriends() {
   const userimage = "./images/userimage.webp";
@@ -11,6 +13,8 @@ export default function Myfriends() {
   const [allfriends, setAllfriends] = useState(false);
   const [favoritefriend, setFavoritefriend] = useState(false);
   const [blockedfriend, setBlockedfriend] = useState(false);
+
+  const [addFriends, setAddFriends] = useState(false);
   const handleNewFriend = () => {
     setBlockedfriend(false);
     setFavoritefriend(false);
@@ -42,8 +46,12 @@ export default function Myfriends() {
   return (
     <>
       <Navbar />
-
-      <div className="flex">
+      {addFriends ? (
+        <div className="absolute w-[100%] top-0 h-[100vh] bg-[#0000003f] z-10"></div>
+      ) : (
+        ""
+      )}
+      <div className="relative flex">
         <div className="chatlist w-[20%] rounded-sm shadow">
           <div className="p-3 px-5 bg-white ">
             <div className="flex justify-between bg-white">
@@ -54,9 +62,12 @@ export default function Myfriends() {
                 </p>
               </div>
               <div className="flex items-center">
-                <div className="flex justify-center items-center gap-1 font-semibold w-[32px] h-[32px] text-[12px] hover:bg-[#9db4ff92] hover:text-[blue] bg-[#e2e8f0] text-[#64748b] rounded-full">
+                <button
+                  onClick={() => setAddFriends(true)}
+                  className="flex justify-center items-center gap-1 font-semibold w-[32px] h-[32px] text-[12px] hover:bg-[#9db4ff92] hover:text-[blue] bg-[#e2e8f0] text-[#64748b] rounded-full"
+                >
                   <AiOutlinePlus fontSize={14} />
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -365,6 +376,35 @@ export default function Myfriends() {
             )}
           </div>
         </div>
+        {addFriends ? (
+          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
+            <div className="p-6 bg-white">
+              <div className="relative">
+                <h6 className="pb-[0.5rem] text-[#475569] text-[18px] font-medium">
+                  Search by UserName
+                </h6>
+                <button
+                  onClick={() => setAddFriends(false)}
+                  className="absolute right-[-35px] top-[-40px] shadow-md rounded-full w-[32px] h-[32px] bg-white"
+                >
+                  <div className="flex justify-center items-center">
+                    <RxCross2 className="text-[15.5px] text-[#000]" />
+                  </div>
+                </button>
+              </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Enter Username"
+                  className="bg-[#e2e8f0] outline-0 w-[272px] py-2 rounded-md indent-10"
+                />
+                <BsSearch className="absolute z-[60] top-[50%] text-[14px] text-[#979a9e] translate-y-[-50%] left-3 " />
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
