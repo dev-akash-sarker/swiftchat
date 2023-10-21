@@ -6,6 +6,7 @@ import { LuDot } from "react-icons/lu";
 import { BlockData } from "./data";
 import { BsSearch } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
+import { FaUserPlus } from "react-icons/fa";
 
 export default function Myfriends() {
   const userimage = "./images/userimage.webp";
@@ -385,10 +386,10 @@ export default function Myfriends() {
                 </h6>
                 <button
                   onClick={() => setAddFriends(false)}
-                  className="absolute right-[-35px] top-[-40px] shadow-md rounded-full w-[32px] h-[32px] bg-white"
+                  className="absolute right-[-35px] top-[-40px] shadow-md rounded-full "
                 >
-                  <div className="flex justify-center items-center">
-                    <RxCross2 className="text-[15.5px] text-[#000]" />
+                  <div className="flex justify-center items-center w-[32px] h-[32px] rounded-full  hover:bg-[#9db4ff92] hover:text-[blue] text-[15.5px] bg-white ">
+                    <RxCross2 />
                   </div>
                 </button>
               </div>
@@ -399,6 +400,33 @@ export default function Myfriends() {
                   className="bg-[#e2e8f0] outline-0 w-[272px] py-2 rounded-md indent-10"
                 />
                 <BsSearch className="absolute z-[60] top-[50%] text-[14px] text-[#979a9e] translate-y-[-50%] left-3 " />
+              </div>
+              <div className="mt-4 h-[260px] overflow-y-auto">
+                {/* one */}
+                <div className="chatuser flex gap-4 mb-3">
+                  <div className="chatImage block w-[40px] h-[40px]">
+                    <img
+                      className="w-[100%] h-[100%] rounded-md"
+                      src={userimage}
+                      alt="userimage"
+                    />
+                  </div>
+                  <div className="imageDetail whitespace-nowrap">
+                    <h6 className="font-bold text-[14px] text-[#64748b] ">
+                      Andriew Thomas{" "}
+                    </h6>
+                    <div className="relative flex items-center">
+                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                        @Andriew_thomas
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <button className="text-[#475569] w-[40px] h-[40px] flex items-center justify-center bg-white hover:bg-[#9db4ff92] hover:text-[#2563eb] rounded-full">
+                      <FaUserPlus className="block" fontSize={16} />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

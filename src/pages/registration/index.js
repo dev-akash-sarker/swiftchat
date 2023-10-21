@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { registerSchema } from "../../validations/validations";
@@ -9,7 +9,7 @@ import {
   updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Registration() {
   const [passwordme, setPasswordme] = useState(false);
   const [passwordmeAgain, setPasswordmeAgain] = useState(false);
+  const [myswiftusername, setMyswift] = useState("");
   const logo = "./images/logo.svg";
   const navigate = useNavigate();
   const auth = getAuth();
@@ -44,6 +45,9 @@ export default function Registration() {
             .then(() => {
               sendEmailVerification(auth.currentUser)
                 .then(() => {
+                  const gusername = formik.values.name;
+                  const swiftusername = "@" + gusername.replace(/ /g, "_");
+
                   set(ref(db, "users/" + user.uid), {
                     username: formik.values.name,
                     email: formik.values.email,
@@ -92,6 +96,13 @@ export default function Registration() {
   const navigateToLogin = () => {
     navigate("/signin");
   };
+  useEffect(() => {
+    const starCountRef = ref(db, "username/");
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
+  }, []);
   return (
     <>
       <ToastContainer />
