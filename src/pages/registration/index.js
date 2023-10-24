@@ -9,19 +9,41 @@ import {
   updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+// import { generateFromEmail, generateUsername } from "unique-username-generator";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Registration() {
+  const [genuser, setGenuser] = useState([]);
   const [passwordme, setPasswordme] = useState(false);
   const [passwordmeAgain, setPasswordmeAgain] = useState(false);
-  const [myswiftusername, setMyswift] = useState("");
+  const [swiftuser, setSwiftuser] = useState("");
+  // const [myswiftusername, setMyswift] = useState("");
   const logo = "./images/logo.svg";
   const navigate = useNavigate();
   const auth = getAuth();
   const db = getDatabase();
+  const generateRandomCharacter = () => {
+    const characterSet = "0123456789abcdefghijklmnopqrstuvwxyz";
+    const randomIndex = Math.floor(Math.random() * characterSet.length);
+    return characterSet.charAt(randomIndex);
+  };
+
+  const generateRandomString = (length) => {
+    let randomString = "";
+    for (let i = 0; i < length; i++) {
+      randomString += generateRandomCharacter();
+    }
+    return randomString;
+  };
+
+  const randomString = generateRandomString(3);
+  const capitalizeFirstLetter = (randomString) => {
+    return randomString.charAt(0).toUpperCase() + randomString.slice(1);
+  };
+  const capitalizeMyWord = capitalizeFirstLetter(randomString);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -43,41 +65,132 @@ export default function Registration() {
             displayName: formik.values.name,
           })
             .then(() => {
+              // const gusername = formik.values.name;
+              // const swiftusername = "@" + gusername.replace(/ /g, "_");
+              // // setMyswift(swiftusername);
+              // if (genuser.includes(swiftusername)) {
+              //   return;
+              // } else if (genuser.includes(swiftusername + capitalizeMyWord)) {
+              //   setSwiftuser(swiftusername + capitalizeMyWord);
+              //   set(ref(db, "username/" + user.uid), {
+              //     username: swiftusername + capitalizeMyWord,
+              //   });
+              // } else {
+              //   setSwiftuser(swiftusername);
+              //   set(push(ref(db, "username/" + user.uid)), {
+              //     username: swiftusername,
+              //   });
+              // }
               sendEmailVerification(auth.currentUser)
                 .then(() => {
                   const gusername = formik.values.name;
                   const swiftusername = "@" + gusername.replace(/ /g, "_");
-
-                  set(ref(db, "users/" + user.uid), {
-                    username: formik.values.name,
-                    email: formik.values.email,
-                  })
-                    .then(() => {
-                      toast.success(
-                        "Registration Successfully Complete! Please Check your mail",
-                        {
+                  // setMyswift(swiftusername);
+                  if (genuser.includes(swiftusername)) {
+                    set(ref(db, "users/" + user.uid), {
+                      username: formik.values.name,
+                      email: formik.values.email,
+                      swiftname: swiftusername + capitalizeMyWord,
+                    })
+                      .then(() => {
+                        toast.success(
+                          "Registration Successfully Complete! Please Check your mail",
+                          {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                          }
+                        );
+                        formik.resetForm();
+                        setTimeout(() => {
+                          navigate("/signin");
+                        }, 1600);
+                      })
+                      .catch((error) => {
+                        toast.error("Registration Failled! Please try again", {
                           position: "bottom-center",
                           autoClose: 1500,
                           hideProgressBar: true,
                           closeOnClick: true,
                           pauseOnHover: false,
-                        }
-                      );
-                      formik.resetForm();
-                      setTimeout(() => {
-                        navigate("/signin");
-                      }, 1600);
-                    })
-                    .catch((error) => {
-                      toast.error("Registration Failled! Please try again", {
-                        position: "bottom-center",
-                        autoClose: 1500,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: false,
+                        });
+                        console.log(error);
                       });
-                      console.log(error);
-                    });
+                    //one
+                    return;
+                  } else if (
+                    genuser.includes(swiftusername + capitalizeMyWord)
+                  ) {
+                    //two
+                    setSwiftuser(swiftusername + capitalizeMyWord);
+                    set(ref(db, "users/" + user.uid), {
+                      username: formik.values.name,
+                      email: formik.values.email,
+                      swiftname:
+                        swiftusername + capitalizeMyWord + capitalizeMyWord,
+                    })
+                      .then(() => {
+                        toast.success(
+                          "Registration Successfully Complete! Please Check your mail",
+                          {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                          }
+                        );
+                        formik.resetForm();
+                        setTimeout(() => {
+                          navigate("/signin");
+                        }, 1600);
+                      })
+                      .catch((error) => {
+                        toast.error("Registration Failled! Please try again", {
+                          position: "bottom-center",
+                          autoClose: 1500,
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: false,
+                        });
+                        console.log(error);
+                      });
+                  } else {
+                    // three
+                    set(ref(db, "users/" + user.uid), {
+                      username: formik.values.name,
+                      email: formik.values.email,
+                      swiftname: swiftusername,
+                    })
+                      .then(() => {
+                        toast.success(
+                          "Registration Successfully Complete! Please Check your mail",
+                          {
+                            position: "bottom-center",
+                            autoClose: 1500,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                          }
+                        );
+                        formik.resetForm();
+                        setTimeout(() => {
+                          navigate("/signin");
+                        }, 1600);
+                      })
+                      .catch((error) => {
+                        toast.error("Registration Failled! Please try again", {
+                          position: "bottom-center",
+                          autoClose: 1500,
+                          hideProgressBar: true,
+                          closeOnClick: true,
+                          pauseOnHover: false,
+                        });
+                        console.log(error);
+                      });
+                  }
                 })
                 .catch((error) => {
                   console.log("Email verification failled", error);
@@ -97,12 +210,15 @@ export default function Registration() {
     navigate("/signin");
   };
   useEffect(() => {
-    const starCountRef = ref(db, "username/");
+    const starCountRef = ref(db, "users/");
     onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
+      const friendArr = [];
+      snapshot.forEach((item) => {
+        friendArr.push(item.val().swiftname);
+      });
+      setGenuser(friendArr);
     });
-  }, []);
+  }, [db]);
   return (
     <>
       <ToastContainer />
@@ -194,7 +310,7 @@ export default function Registration() {
                     name="passwordAgain"
                     onChange={formik.handleChange}
                     value={formik.values.passwordAgain}
-                    type="password"
+                    type={passwordmeAgain ? "text" : "password"}
                     className="border-[1px] rounded-md indent-4 w-[250px] h-[40px] mt-2 outline-none"
                     placeholder="password again"
                   />

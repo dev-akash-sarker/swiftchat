@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BsFillChatDotsFill } from "react-icons/bs";
-import { HiMiniUsers, HiSquare2Stack } from "react-icons/hi2";
+import { HiSquare2Stack } from "react-icons/hi2";
+import { BiSolidUserDetail } from "react-icons/bi";
 export default function Navbar() {
   const logo = "./images/logo.svg";
   return (
@@ -20,25 +21,25 @@ export default function Navbar() {
             <li className="flex items-center">
               <NavLink
                 to={"/mychat"}
-                className="flex items-center justify-center w-[50px] h-[50px] bg-[#9db4ff92] rounded-full "
+                className="flex items-center justify-center w-[50px] h-[50px] text-[#334155] hover:text-[#1BA8F0] bg-[#e2e8f0] hover:bg-[#9db4ff92] rounded-full"
               >
-                <BsFillChatDotsFill color="#1BA8F0" fontSize={25} />
+                <BsFillChatDotsFill fontSize={25} />
               </NavLink>
             </li>
             <li className="flex items-center">
               <NavLink
                 to={"/myfriends"}
-                className="flex items-center justify-center w-[50px] h-[50px] bg-[#9db4ff92] rounded-full"
+                className="flex items-center justify-center w-[50px] h-[50px] text-[#334155] hover:text-[#1BA8F0] bg-[#e2e8f0] hover:bg-[#9db4ff92] rounded-full"
               >
-                <HiMiniUsers color="#1BA8F0" fontSize={30} />
+                <BiSolidUserDetail fontSize={30} />
               </NavLink>
             </li>
             <li className="flex items-center">
               <NavLink
                 to={"/mystories"}
-                className="flex items-center justify-center w-[50px] h-[50px] bg-[#9db4ff92] rounded-full"
+                className="flex items-center justify-center w-[50px] h-[50px] text-[#334155] hover:text-[#1BA8F0] bg-[#e2e8f0] hover:bg-[#9db4ff92] rounded-full"
               >
-                <HiSquare2Stack color="#1BA8F0" fontSize={30} />
+                <HiSquare2Stack fontSize={30} />
               </NavLink>
             </li>
           </ul>

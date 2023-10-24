@@ -99,19 +99,19 @@ export default function LoginPage() {
                     </div>
                   ) : null}
                   {passwordme ? (
-                    <div
+                    <button
                       onClick={() => setPasswordme(false)}
                       className="absolute top-[41px] left-[296px]"
                     >
                       <AiFillEye fontSize={16} />
-                    </div>
+                    </button>
                   ) : (
-                    <div
+                    <button
                       onClick={() => setPasswordme(true)}
                       className="absolute top-[41px] left-[296px]"
                     >
                       <AiFillEyeInvisible fontSize={16} />
-                    </div>
+                    </button>
                   )}
                 </label>
                 <button

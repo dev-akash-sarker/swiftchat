@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar";
 import { AiOutlinePlus } from "react-icons/ai";
 import { ImBlocked } from "react-icons/im";
@@ -7,9 +7,18 @@ import { BlockData } from "./data";
 import { BsSearch } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { FaUserPlus } from "react-icons/fa";
+import { getDatabase, onValue, ref } from "firebase/database";
+import { useSelector } from "react-redux";
 
 export default function Myfriends() {
+  const defaultCover = "./images/defaulcover.jpg";
+  const user = useSelector((state) => state.login.loggedIn);
+  // eslint-disable-next-line no-unused-vars
+  const db = getDatabase();
   const userimage = "./images/userimage.webp";
+  const defaultprofile = "./images/defaultprofile.jpg";
+  const [myaccount, setMyaccount] = useState();
+  const [swiftusers, setSwiftusers] = useState({});
   const [newfriends, setNewfriends] = useState(false);
   const [allfriends, setAllfriends] = useState(false);
   const [favoritefriend, setFavoritefriend] = useState(false);
@@ -44,6 +53,28 @@ export default function Myfriends() {
     setNewfriends(false);
   };
 
+  useEffect(() => {
+    const starCountRef = ref(db, "users/");
+    onValue(starCountRef, (snapshot) => {
+      const myusers = [];
+      const myaccount = [];
+      snapshot.forEach((item) => {
+        if (item.key !== user.uid) {
+          myusers.push({
+            ...item.val(),
+            id: item.key,
+          });
+        }
+        if (item.key === user.uid) {
+          myaccount.push(...item.val());
+        }
+      });
+      setSwiftusers(myusers);
+      setMyaccount(myaccount);
+    });
+  }, [db, user.uid]);
+  console.log(swiftusers);
+  console.log(myaccount);
   return (
     <>
       <Navbar />
@@ -377,6 +408,44 @@ export default function Myfriends() {
             )}
           </div>
         </div>
+        <div className="w-[80%] rounded-sm shadow bg-[#DBEAFE]">
+          <div className="py-[32px] px-[20px]">
+            <div className="px-[12px] ">
+              <div className="bg-white rounded-xl">
+                <div className="chatImage block w-[100%] h-[500px]">
+                  <img
+                    className="w-[100%] h-[100%] rounded-xl object-cover"
+                    src={defaultCover}
+                    alt="userimage"
+                  />
+                </div>
+                <div className="px-[28px] py-[28px] flex">
+                  <div className="w-[140.08px] h-[140.08px] border-2 border-[#fff] rounded-md  mt-[-60px]">
+                    <img
+                      className="w-[100%] h-[100%] rounded-md"
+                      src={defaultprofile}
+                      alt="profilePicture"
+                    />
+                  </div>
+                  <div>
+                    {/* {myaccount.map((item, i) => (
+                      <div>
+                        <div className="profilename"></div>
+                        <div className="contact_count"></div>
+                        <div className="friends"></div>
+                      </div>
+                    ))} */}
+                    <div>
+                      <div className="profilename"></div>
+                      <div className="contact_count"></div>
+                      <div className="friends"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         {addFriends ? (
           <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
             <div className="p-6 bg-white">
@@ -403,30 +472,34 @@ export default function Myfriends() {
               </div>
               <div className="mt-4 h-[260px] overflow-y-auto">
                 {/* one */}
-                <div className="chatuser flex gap-4 mb-3">
-                  <div className="chatImage block w-[40px] h-[40px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Andriew Thomas{" "}
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        @Andriew_thomas
-                      </p>
+                {Object.values(swiftusers).map((item, i) => (
+                  <>
+                    <div key={i} className="chatuser flex gap-4 mb-3">
+                      <div className="chatImage block w-[40px] h-[40px]">
+                        <img
+                          className="w-[100%] h-[100%] rounded-md"
+                          src={userimage}
+                          alt="userimage"
+                        />
+                      </div>
+                      <div className="imageDetail whitespace-nowrap">
+                        <h6 className="font-bold text-[14px] text-[#64748b] ">
+                          {item.username}
+                        </h6>
+                        <div className="relative flex items-center">
+                          <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                            {item.swiftname}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <button className="text-[#475569] w-[40px] h-[40px] flex items-center justify-center bg-white hover:bg-[#9db4ff92] hover:text-[#2563eb] rounded-full">
+                          <FaUserPlus className="block" fontSize={16} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center">
-                    <button className="text-[#475569] w-[40px] h-[40px] flex items-center justify-center bg-white hover:bg-[#9db4ff92] hover:text-[#2563eb] rounded-full">
-                      <FaUserPlus className="block" fontSize={16} />
-                    </button>
-                  </div>
-                </div>
+                  </>
+                ))}
               </div>
             </div>
           </div>
