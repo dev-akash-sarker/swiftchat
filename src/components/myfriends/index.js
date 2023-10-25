@@ -9,6 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 import { FaUserPlus } from "react-icons/fa";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useSelector } from "react-redux";
+import AboutDescription from "../profiledescription";
 
 export default function Myfriends() {
   const defaultCover = "./images/defaulcover.jpg";
@@ -84,331 +85,337 @@ export default function Myfriends() {
         ""
       )}
       <div className="relative flex">
-        <div className="chatlist w-[20%] rounded-sm shadow">
-          <div className="p-3 px-5 bg-white ">
-            <div className="flex justify-between bg-white">
-              <div>
-                <h4 className="font-bold">Friends</h4>
-                <p className="text-[0.75rem] font-[500] text-[#94a3b8] mt-2">
-                  127 Friends
-                </p>
-              </div>
-              <div className="flex items-center">
-                <button
-                  onClick={() => setAddFriends(true)}
-                  className="flex justify-center items-center gap-1 font-semibold w-[32px] h-[32px] text-[12px] hover:bg-[#9db4ff92] hover:text-[blue] bg-[#e2e8f0] text-[#64748b] rounded-full"
-                >
-                  <AiOutlinePlus fontSize={14} />
-                </button>
+        <div className="w-[20%]">
+          <div className="chatlist fixed w-[20%] rounded-sm shadow">
+            <div className="p-3 px-5 bg-white mt-[61px]">
+              <div className="flex justify-between bg-white">
+                <div>
+                  <h4 className="font-bold">Friends</h4>
+                  <p className="text-[0.75rem] font-[500] text-[#94a3b8] mt-2">
+                    127 Friends
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => setAddFriends(true)}
+                    className="flex justify-center items-center gap-1 font-semibold w-[32px] h-[32px] text-[12px] hover:bg-[#9db4ff92] hover:text-[blue] bg-[#e2e8f0] text-[#64748b] rounded-full"
+                  >
+                    <AiOutlinePlus fontSize={14} />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="relative search pt-3 px-5">
-            <nav>
-              <ul className="flex text-[12px] font-[600] leading-[24px] text-[#64748b] gap-3 ">
-                <li>
-                  <button
-                    onClick={handleAllFriends}
-                    className={
-                      allfriends
-                        ? "border-b-[3px] rounded-sm border-[blue] text-[blue]"
-                        : !newfriends &&
-                          !favoritefriend &&
-                          !blockedfriend &&
-                          !allfriends
-                        ? "border-b-[3px] rounded-sm border-[blue] text-[blue]"
-                        : ""
-                    }
-                  >
-                    All
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={handleNewFriend}
-                    className={
-                      newfriends &&
-                      "border-b-[3px] rounded-sm border-[blue] text-[blue]"
-                    }
-                  >
-                    New
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={handleFavoriteFriends}
-                    className={
-                      favoritefriend &&
-                      "border-b-[3px] rounded-sm border-[blue] text-[blue]"
-                    }
-                  >
-                    Favorites
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={handleBlockedFriends}
-                    className={
-                      blockedfriend &&
-                      "border-b-[3px] rounded-sm border-[blue] text-[blue]"
-                    }
-                  >
-                    Blocked
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <hr className="mb-2 mt-0" />
-          <div className="p-3 pt-0 px-5 h-[573px] overflow-y-auto">
-            {!newfriends && !favoritefriend && !blockedfriend && !allfriends ? (
-              <>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Jasmine Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
+            <div className="relative search pt-3 px-5">
+              <nav>
+                <ul className="flex text-[12px] font-[600] leading-[24px] text-[#64748b] gap-3 ">
+                  <li>
+                    <button
+                      onClick={handleAllFriends}
+                      className={
+                        allfriends
+                          ? "border-b-[3px] rounded-sm border-[blue] text-[blue]"
+                          : !newfriends &&
+                            !favoritefriend &&
+                            !blockedfriend &&
+                            !allfriends
+                          ? "border-b-[3px] rounded-sm border-[blue] text-[blue]"
+                          : ""
+                      }
+                    >
+                      All
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleNewFriend}
+                      className={
+                        newfriends &&
+                        "border-b-[3px] rounded-sm border-[blue] text-[blue]"
+                      }
+                    >
+                      New
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleFavoriteFriends}
+                      className={
+                        favoritefriend &&
+                        "border-b-[3px] rounded-sm border-[blue] text-[blue]"
+                      }
+                    >
+                      Favorites
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleBlockedFriends}
+                      className={
+                        blockedfriend &&
+                        "border-b-[3px] rounded-sm border-[blue] text-[blue]"
+                      }
+                    >
+                      Blocked
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <hr className="mb-2 mt-0" />
+            <div className="p-3 pt-0 px-5 h-[573px] overflow-y-auto">
+              {!newfriends &&
+              !favoritefriend &&
+              !blockedfriend &&
+              !allfriends ? (
+                <>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
                     </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Jasmine Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : allfriends ? (
-              <>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Jasmine Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Jasmine Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-
-            {newfriends && (
-              <>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Ashlay Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Robert Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            {favoritefriend && (
-              <>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Drack Thampson{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-                <div className="chatuser flex gap-4 mb-2">
-                  <div className="chatImage block w-[48px] h-[48px]">
-                    <img
-                      className="w-[100%] h-[100%] rounded-md"
-                      src={userimage}
-                      alt="userimage"
-                    />
-                  </div>
-                  <div className="imageDetail whitespace-nowrap">
-                    <h6 className="font-bold text-[14px] text-[#64748b] ">
-                      Andriew Thomas{" "}
-                      <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
-                        typing ...
-                      </span>
-                    </h6>
-                    <div className="relative flex items-center">
-                      <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
-                        Had they visited rome before Had they visited rome
-                        before
-                      </p>
-                    </div>
-                    <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
-                      <LuDot fontSize={10} /> 45 min
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {blockedfriend && (
-              <>
-                <div>
-                  {BlockData.length > 0 ? (
-                    "dekhi"
-                  ) : (
-                    <>
-                      <div className="flex justify-center items-center w-[100%] h-[100%] relative">
-                        <ImBlocked
-                          fontSize={150}
-                          className="text-[#80808049] block absolute top-[50%] translate-y-[80%]"
-                        />
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Jasmine Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
                       </div>
-                    </>
-                  )}
-                </div>
-              </>
-            )}
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Jasmine Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : allfriends ? (
+                <>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Jasmine Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Jasmine Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+
+              {newfriends && (
+                <>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Ashlay Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Robert Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+              {favoritefriend && (
+                <>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Drack Thampson{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                  <div className="chatuser flex gap-4 mb-2">
+                    <div className="chatImage block w-[48px] h-[48px]">
+                      <img
+                        className="w-[100%] h-[100%] rounded-md"
+                        src={userimage}
+                        alt="userimage"
+                      />
+                    </div>
+                    <div className="imageDetail whitespace-nowrap">
+                      <h6 className="font-bold text-[14px] text-[#64748b] ">
+                        Andriew Thomas{" "}
+                        <span className="ml-1 font-normal text-[#cbd5e1] text-[0.625rem]">
+                          typing ...
+                        </span>
+                      </h6>
+                      <div className="relative flex items-center">
+                        <p className="text-[0.75rem] text-[#64748b] mb-0 w-[170px] overflow-hidden text-ellipsis">
+                          Had they visited rome before Had they visited rome
+                          before
+                        </p>
+                      </div>
+                      <div className=" flex items-center text-[#94a3b8] text-[0.55rem]">
+                        <LuDot fontSize={10} /> 45 min
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {blockedfriend && (
+                <>
+                  <div>
+                    {BlockData.length > 0 ? (
+                      "dekhi"
+                    ) : (
+                      <>
+                        <div className="flex justify-center items-center w-[100%] h-[100%] relative">
+                          <ImBlocked
+                            fontSize={150}
+                            className="text-[#80808049] block absolute top-[50%] translate-y-[80%]"
+                          />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
-        <div className="w-[80%] rounded-sm shadow bg-[#DBEAFE]">
+
+        <div className="w-[80%] rounded-sm shadow bg-[#DBEAFE] py-[64px]">
           <div className="py-[32px] px-[20px]">
             <div className="px-[12px] ">
               <div className="bg-white rounded-xl">
@@ -419,7 +426,7 @@ export default function Myfriends() {
                     alt="userimage"
                   />
                 </div>
-                <div className="px-[28px] py-[28px] flex">
+                <div className="px-[28px] py-[28px] flex gap-4">
                   <div className="w-[140.08px] h-[140.08px] border-2 border-[#fff] rounded-md  mt-[-60px]">
                     <img
                       className="w-[100%] h-[100%] rounded-md"
@@ -428,34 +435,32 @@ export default function Myfriends() {
                     />
                   </div>
                   <div>
-                    {/* {myaccount.map((item, i) => (
-                      <div>
-                        <div className="profilename"></div>
-                        <div className="contact_count"></div>
-                        <div className="friends"></div>
-                      </div>
-                    ))} */}
-                    {Object.values(myaccount).map((item, i) => (
-                      <div key={i}>
-                        <div className="profilename text-[#64748b] text-[18px] font-[600] leading-[25.2px]">
-                          {item.username}{" "}
-                          <span className="text-[#94a3b8] text-[12.6px] font-[400] text-start text">
-                            {item.swiftname}
-                          </span>
-                        </div>
-                        <div className="contact_count">
-                          0 Friends | 0 Mutual
-                        </div>
-                        <div className="friends flex">
-                          <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff]"></div>
-                          <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff] ml-[-12px]"></div>
-                          <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff] ml-[-12px]"></div>
-                        </div>
-                      </div>
-                    ))}
+                    {myaccount === undefined
+                      ? ""
+                      : Object.values(myaccount).map((item, i) => (
+                          <div key={i}>
+                            <div className="profilename text-[#64748b] text-[18px] font-[600] leading-[25.2px]">
+                              {item.username}
+                              <span className="text-[#94a3b8] text-[12.6px] font-[400] text-start text">
+                                {item.swiftname}
+                              </span>
+                            </div>
+                            <div className="contact_count text-[#64748b] text-[0.75rem] overflow-hidden text-ellipsis whitespace-nowrap">
+                              0 Friends | 0 Mutual
+                            </div>
+                            <div className="friends flex pt-[8px]">
+                              <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff]"></div>
+                              <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff] ml-[-12px]"></div>
+                              <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff] ml-[-12px]"></div>
+                            </div>
+                          </div>
+                        ))}
                   </div>
                 </div>
               </div>
+            </div>
+            <div>
+              <AboutDescription />
             </div>
           </div>
         </div>
