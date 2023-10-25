@@ -9,17 +9,16 @@ import {
   updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
-import { getDatabase, ref, set, onValue, push } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-// import { generateFromEmail, generateUsername } from "unique-username-generator";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Registration() {
   const [genuser, setGenuser] = useState([]);
   const [passwordme, setPasswordme] = useState(false);
   const [passwordmeAgain, setPasswordmeAgain] = useState(false);
-  const [swiftuser, setSwiftuser] = useState("");
+  // const [ //swiftuser, setSwiftuser] = useState("");
   // const [myswiftusername, setMyswift] = useState("");
   const logo = "./images/logo.svg";
   const navigate = useNavigate();
@@ -65,22 +64,6 @@ export default function Registration() {
             displayName: formik.values.name,
           })
             .then(() => {
-              // const gusername = formik.values.name;
-              // const swiftusername = "@" + gusername.replace(/ /g, "_");
-              // // setMyswift(swiftusername);
-              // if (genuser.includes(swiftusername)) {
-              //   return;
-              // } else if (genuser.includes(swiftusername + capitalizeMyWord)) {
-              //   setSwiftuser(swiftusername + capitalizeMyWord);
-              //   set(ref(db, "username/" + user.uid), {
-              //     username: swiftusername + capitalizeMyWord,
-              //   });
-              // } else {
-              //   setSwiftuser(swiftusername);
-              //   set(push(ref(db, "username/" + user.uid)), {
-              //     username: swiftusername,
-              //   });
-              // }
               sendEmailVerification(auth.currentUser)
                 .then(() => {
                   const gusername = formik.values.name;
@@ -124,7 +107,7 @@ export default function Registration() {
                     genuser.includes(swiftusername + capitalizeMyWord)
                   ) {
                     //two
-                    setSwiftuser(swiftusername + capitalizeMyWord);
+                    // setSwiftuser(swiftusername + capitalizeMyWord);
                     set(ref(db, "users/" + user.uid), {
                       username: formik.values.name,
                       email: formik.values.email,

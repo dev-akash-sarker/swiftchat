@@ -18,7 +18,7 @@ export default function Myfriends() {
   const userimage = "./images/userimage.webp";
   const defaultprofile = "./images/defaultprofile.jpg";
   const [myaccount, setMyaccount] = useState();
-  const [swiftusers, setSwiftusers] = useState({});
+  const [swiftusers, setSwiftusers] = useState([]);
   const [newfriends, setNewfriends] = useState(false);
   const [allfriends, setAllfriends] = useState(false);
   const [favoritefriend, setFavoritefriend] = useState(false);
@@ -66,7 +66,7 @@ export default function Myfriends() {
           });
         }
         if (item.key === user.uid) {
-          myaccount.push(...item.val());
+          myaccount.push({ ...item.val() });
         }
       });
       setSwiftusers(myusers);
@@ -435,11 +435,24 @@ export default function Myfriends() {
                         <div className="friends"></div>
                       </div>
                     ))} */}
-                    <div>
-                      <div className="profilename"></div>
-                      <div className="contact_count"></div>
-                      <div className="friends"></div>
-                    </div>
+                    {Object.values(myaccount).map((item, i) => (
+                      <div key={i}>
+                        <div className="profilename text-[#64748b] text-[18px] font-[600] leading-[25.2px]">
+                          {item.username}{" "}
+                          <span className="text-[#94a3b8] text-[12.6px] font-[400] text-start text">
+                            {item.swiftname}
+                          </span>
+                        </div>
+                        <div className="contact_count">
+                          0 Friends | 0 Mutual
+                        </div>
+                        <div className="friends flex">
+                          <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff]"></div>
+                          <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff] ml-[-12px]"></div>
+                          <div className="w-[32px] h-[32px] bg-[red] rounded-full border-2 border-[#fff] ml-[-12px]"></div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
