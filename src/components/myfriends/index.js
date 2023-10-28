@@ -26,6 +26,11 @@ export default function Myfriends() {
   const [blockedfriend, setBlockedfriend] = useState(false);
 
   const [addFriends, setAddFriends] = useState(false);
+  if (addFriends === true) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
   const handleNewFriend = () => {
     setBlockedfriend(false);
     setFavoritefriend(false);
@@ -80,7 +85,7 @@ export default function Myfriends() {
     <>
       <Navbar />
       {addFriends ? (
-        <div className="absolute w-[100%] top-0 h-[100vh] bg-[#0000003f] z-10"></div>
+        <div className="fixed w-[100%] top-0 h-[100vh] bg-[#0000003f] z-10"></div>
       ) : (
         ""
       )}
@@ -465,7 +470,7 @@ export default function Myfriends() {
           </div>
         </div>
         {addFriends ? (
-          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
+          <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
             <div className="p-6 bg-white">
               <div className="relative">
                 <h6 className="pb-[0.5rem] text-[#475569] text-[18px] font-medium">

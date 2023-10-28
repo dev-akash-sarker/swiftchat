@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   BsAppIndicator,
   BsFillChatDotsFill,
@@ -18,11 +18,17 @@ export default function Navbar() {
   };
 
   const handleOff = (e) => {
-    if (e.target.checked === true) {
-      setDarkmode();
+    // if (e.target.checked === true) {
+    //   setDarkmode();
+    // }
+    if (darkmode) {
+      e.target.checked = false;
     }
+    console.log("dekhi", (e.target.checked = false));
   };
-  const handleOn = (e) => {};
+  const handleOn = (e) => {
+    setDarkmode(true);
+  };
   return (
     <>
       <div>
@@ -87,30 +93,36 @@ export default function Navbar() {
                 <>
                   <div className="absolute top-[56px] shadow-lg rounded-md px-[18px] left-[-149px] w-[196px] bg-white">
                     <div className="">
-                      <div className="py-[20px] flex justify-between items-center">
-                        <div className="w-[48px] h-[48px] overflow-hidden rounded-md">
-                          <img
-                            src="https://source.unsplash.com/random/300×300/?person"
-                            alt="myprofile"
-                            className="w-[100%] h-[100%] object-cover"
-                          />
+                      <Link to={"/myprofile"}>
+                        <div className="py-[20px] flex justify-between items-center">
+                          <div className="w-[48px] h-[48px] overflow-hidden rounded-md">
+                            <img
+                              src="https://source.unsplash.com/random/300×300/?person"
+                              alt="myprofile"
+                              className="w-[100%] h-[100%] object-cover"
+                            />
+                          </div>
+                          <div>
+                            <h6 className="text-[#64748b] text-[14px] font-bold leading-[19.6px]">
+                              {user.displayName}
+                            </h6>
+                            <p className="text-[#64748b] text-[14px] font-[400] leading-[19.6px]">
+                              sdsdsd
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h6 className="text-[#64748b] text-[14px] font-bold leading-[19.6px]">
-                            {user.displayName}
-                          </h6>
-                          <p className="text-[#64748b] text-[14px] font-[400] leading-[19.6px]">
-                            sdsdsd
-                          </p>
-                        </div>
-                      </div>
+                      </Link>
                       <hr />
                       <div className="py-3">
                         <h4>Darkmode</h4>
                         <div className="flex gap-3 items-center mt-2">
                           <div>
                             <label>
-                              <input type="radio" /> on
+                              <input
+                                type="radio"
+                                onClick={(e) => handleOn(e)}
+                              />{" "}
+                              on
                             </label>
                           </div>
                           <div>

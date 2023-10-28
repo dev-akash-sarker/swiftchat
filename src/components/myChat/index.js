@@ -27,7 +27,7 @@ export default function Mychat() {
     <>
       <Navbar />
       <div className="flex ">
-        <div className="chatlist w-[20%] rounded-sm shadow">
+        <div className="chatlist w-[20%] rounded-sm shadow mt-[59.8px]">
           <div className="p-3 px-5 bg-white ">
             <div className="flex justify-between bg-white">
               <h4>Chats</h4>
@@ -107,7 +107,9 @@ export default function Mychat() {
         </div>
         <div
           className={
-            sidebarstate ? "chating w-[80%] bg-blue" : "chating w-[60%] bg-blue"
+            sidebarstate
+              ? "chating w-[80%] bg-blue mt-[59.8px]"
+              : "chating w-[60%] bg-blue mt-[59.8px]"
           }
         >
           <div className="p-7 shadow flex justify-between">
@@ -247,7 +249,11 @@ export default function Mychat() {
             </div>
           </div>
         </div>
-        <div className={sidebarstate ? "w-0 hidden" : "w-[20%]"}>
+        <div
+          className={
+            sidebarstate ? "w-0 hidden mt-[61px]" : "w-[20%] mt-[61px]"
+          }
+        >
           <div className="relative">
             <div className="coverImage w-[305px] h-[auto] overflow-hidden ">
               <img src={thumnail} className="w-[100%] h-[100%]" alt="" />
