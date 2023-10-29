@@ -4,9 +4,12 @@ import {
   BsAppIndicator,
   BsFillChatDotsFill,
   BsFillGridFill,
+  BsFillMoonFill,
+  BsUnlock,
 } from "react-icons/bs";
 import { HiSquare2Stack } from "react-icons/hi2";
-import { BiSolidUserDetail } from "react-icons/bi";
+import { CiSettings } from "react-icons/ci";
+import { BiLogOutCircle, BiSolidUserDetail, BiUser } from "react-icons/bi";
 import { useSelector } from "react-redux";
 export default function Navbar() {
   const user = useSelector((state) => state.login.loggedIn);
@@ -91,10 +94,10 @@ export default function Navbar() {
               </button>
               {myprofile && (
                 <>
-                  <div className="absolute top-[56px] shadow-lg rounded-md px-[18px] left-[-149px] w-[196px] bg-white">
+                  <div className="absolute top-[56px] shadow-lg rounded-md px-[18px] left-[-220px] w-[270px] border-2 bg-white">
                     <div className="">
                       <Link to={"/myprofile"}>
-                        <div className="py-[20px] flex justify-between items-center">
+                        <div className="py-[20px] flex gap-4 items-center">
                           <div className="w-[48px] h-[48px] overflow-hidden rounded-md">
                             <img
                               src="https://source.unsplash.com/random/300×300/?person"
@@ -114,28 +117,65 @@ export default function Navbar() {
                       </Link>
                       <hr />
                       <div className="py-3">
-                        <h4>Darkmode</h4>
+                        <h4 className="flex items-center gap-2 text-[#475569] font-[600]">
+                          <BsFillMoonFill /> Darkmode
+                        </h4>
                         <div className="flex gap-3 items-center mt-2">
                           <div>
-                            <label>
+                            <label className="flex items-center">
                               <input
                                 type="radio"
                                 onClick={(e) => handleOn(e)}
-                              />{" "}
+                                className="mr-1"
+                              />
                               on
                             </label>
                           </div>
                           <div>
-                            <label>
+                            <label className="flex items-center">
                               <input
                                 type="radio"
                                 onClick={(e) => handleOff(e)}
+                                className="mr-1"
                                 checked
                               />
                               off
                             </label>
                           </div>
                         </div>
+                      </div>
+                      <hr />
+                      <div className="py-3">
+                        <ul className="flex flex-col gap-3">
+                          <li>
+                            <Link
+                              to={"/myprofile"}
+                              className="flex items-center gap-2 text-[0.85rem] text-[#64748b] hover:text-[#2563eb]"
+                            >
+                              <BiUser /> Profile
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to={"/mysetting"}
+                              className="flex items-center gap-2 text-[0.85rem] text-[#64748b] hover:text-[#2563eb]"
+                            >
+                              <CiSettings /> Settings
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="flex items-center gap-2 text-[0.85rem] text-[#64748b] hover:text-[#2563eb]">
+                              <BsUnlock />
+                              Change Password
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <hr />
+                      <div className="py-3">
+                        <Link className="flex items-center gap-2 text-[0.85rem] text-[#64748b] hover:text-[#2563eb]">
+                          <BiLogOutCircle className="rotate-90" /> logout
+                        </Link>
                       </div>
                     </div>
                   </div>

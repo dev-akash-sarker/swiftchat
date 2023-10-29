@@ -15,6 +15,7 @@ import Mychat from "./components/myChat";
 import Mystories from "./components/stories";
 import Myfriends from "./components/myfriends";
 import MyProfile from "./components/myprofile";
+import MySetting from "./components/mysetting";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -34,6 +35,7 @@ function App() {
           <Route path="/myfriends" element={<Myfriends />} />
           <Route path="/mystories" element={<Mystories />} />
           <Route path="/myprofile" element={<MyProfile />} />
+          <Route path="/mysetting" element={<MySetting />} />
         </Route>
       </Route>
     )
