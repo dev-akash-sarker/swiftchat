@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GoUnverified, GoVerified } from "react-icons/go";
 import { RxReload } from "react-icons/rx";
@@ -15,36 +15,19 @@ import { useFormik } from "formik";
 import { getDatabase, ref, update } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import { loginUsers } from "../../feature/slice/loginSlice";
-// import { getCities } from "countries-cities";
-// import { City } from "country-state-city";
-// import { cities } from "cities-list";
-// import { loginUsers } from "../../feature/slice/loginSlice";
-
-// import { Country, State, City } from "country-state-city";
+import { City, Country, State } from "country-state-city";
 
 export default function MyEdit() {
-  // const cc = "US";
-  // const citiesInCountry = Object.values(cities[cc]);
-  // console.log(cities["london"]);
+  let countryData = Country.getAllCountries();
+  const [countryname, setCountryname] = useState("");
+  const [country, setCountry] = useState(countryData[18]);
+
+  // console.log("countr", countryData[0].isoCode);
+  const [stateData, setStateData] = useState();
   const auth = getAuth();
   const [islogout, setIslogout] = useState(false);
-  // const [myuser, setMyuser] = useState(getAuth().currentUser);
   const user = useSelector((state) => state.login.loggedIn);
 
-  // useEffect(() => {
-  //   const unsubscribe = getAuth().onAuthStateChanged((user) => {
-  //     if (myuser) {
-  //       // If the user is authenticated, update the user state
-  //       setMyuser(myuser);
-  //     } else {
-  //       // If the user is not authenticated, set the user state to null
-  //       setMyuser(null);
-  //     }
-  //   });
-
-  //   // Clean up the listener when the component unmounts
-  //   return () => unsubscribe();
-  // }, [auth, myuser]);
   const db = getDatabase();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -60,6 +43,8 @@ export default function MyEdit() {
     onSubmit: (e) => {
       updateProfile(mineuser, {
         displayName: e.firstname + " " + e.lastname,
+        country: countryname.split(" ")[0],
+        isocode: countryname.split(" ")[1],
       })
         .then(() => {
           update(ref(db, `${"users/" + user.uid}`), {
@@ -120,10 +105,24 @@ export default function MyEdit() {
     }, 1800);
   }
 
+  const handleSelect = (e) => {
+    setCountryname(e.target.value);
+    if (countryname !== "") {
+      setCountry(countryname.split(" ")[2]);
+    }
+  };
+
+  useEffect(() => {
+    // setStateData(State.getStateOfCountry(country?.isoCode));
+    setStateData(State.getStatesOfCountry(countryData[country]?.isoCode));
+  }, [country, country.isoCode, countryData, countryname]);
+  console.log("mula", stateData);
+  console.log("gajor", countryname.split(" ")[2]);
+  console.log("helo myla", country);
   return (
     <>
       <ToastContainer />
-
+      {countryname}
       <div className="mt-12 ml-3 mr-2 text-[#2563eb] text-[12px] font-bold border-b-2 border-[#2563eb] inline-block">
         Edit Profile
       </div>
@@ -213,19 +212,37 @@ export default function MyEdit() {
                 <label className="flex flex-col gap-2 text-[#475569] text-[14px] font-[500]">
                   Country
                   <select
+                    onChange={handleSelect}
                     id="countries"
                     class="bg-gray-50 border border-gray-300 h-[39.6px] outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option selected>Choose a country</option>
-                    {allcountry.map((item, i) => (
+
+                    {Object.entries(countryData).map((item, key) => (
                       <>
-                        <option value={item.code} key={i}>
-                          {item.name}
+                        <option
+                          value={
+                            item[1].name + " " + item[1].isoCode + " " + item[0]
+                          }
+                        >
+                          <span>{item[1].name}</span>
                         </option>
+                        {/* {console.log("hello", key)} */}
                       </>
                     ))}
+                    {/* {countryData.map((item, i) => (
+                      <option
+                        onChange={mycodeiso}
+                        value={item.name}
+                        data={item.isoCode}
+                        key={i}
+                      >
+                        <span>{item.name}</span>
+                      </option>
+                    ))} */}
                   </select>
                 </label>
+
                 <label className="flex flex-col gap-2 text-[#475569] text-[14px] font-[500]">
                   State
                   <select
@@ -233,12 +250,15 @@ export default function MyEdit() {
                     class="bg-gray-50 border border-gray-300 h-[39.6px] outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option selected>Choose a state</option>
-                    {allcountry.map((item, i) => (
+                    {/* {allcountry.map((item, i) => (
                       <>
                         <option value={item.code} key={i}>
                           {item.name}
                         </option>
                       </>
+                    ))} */}
+                    {stateData?.map((item) => (
+                      <option value={item.name}>{item.name}</option>
                     ))}
                   </select>
                 </label>
